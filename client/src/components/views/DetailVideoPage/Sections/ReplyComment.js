@@ -20,7 +20,7 @@ function ReplyComment(props) {
 
     let renderReplyComment = (parentCommentId) =>
         props.CommentLists.map((comment, index) => (
-            <React.Fragment>
+            <React.Fragment >
                 {comment.responseTo === parentCommentId &&
                     <div style={{ width: '80%', marginLeft: '40px' }}>
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
@@ -41,7 +41,7 @@ function ReplyComment(props) {
             {ChildCommentNumber > 0 &&
                 <p style={{ fontSize: '14px', margin: 0, color: 'gray' }}
                     onClick={handleChange} >
-                    View {ChildCommentNumber} more comment(s)
+                   <span style={{cursor:"pointer"}}> View {ChildCommentNumber} more comment(s)</span>
              </p>
             }
 

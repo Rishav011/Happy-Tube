@@ -49,6 +49,7 @@ function SingleComment(props) {
         <div>
             <Comment
                 actions={actions}
+                
                 author={props.comment.writer.name}
                 avatar={
                     <Avatar
