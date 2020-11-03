@@ -44,7 +44,7 @@ function Subscriber(props) {
 
 
     useEffect(() => {
-
+        
         const subscribeNumberVariables = { userTo: userTo, userFrom: userFrom }
         axios.post('/api/subscribe/subscribeNumber', subscribeNumberVariables)
             .then(response => {
@@ -63,7 +63,7 @@ function Subscriber(props) {
                     alert('Failed to get Subscribed Information')
                 }
             })
-
+            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -73,6 +73,7 @@ function Subscriber(props) {
             onClick={onSubscribe}
             style={{
                 backgroundColor: `${Subscribed ? '#AAAAAA' : '#CC0000'}`,
+                cursor:"pointer",
                 borderRadius: '4px', color: 'white',
                 padding: '10px 16px', fontWeight: '500', fontSize: '1rem', textTransform: 'uppercase'
             }}>

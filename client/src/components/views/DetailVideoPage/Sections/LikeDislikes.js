@@ -34,6 +34,7 @@ function LikeDislikes(props) {
                         if (like.userId === props.userId) {
                             setLikeAction('liked')
                         }
+                        return null;
                     })
                 } else {
                     alert('Failed to get likes')
@@ -52,12 +53,13 @@ function LikeDislikes(props) {
                         if (dislike.userId === props.userId) {
                             setDislikeAction('disliked')
                         }
+                        return null; 
                     })
                 } else {
                     alert('Failed to get dislikes')
                 }
             })
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 

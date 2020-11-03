@@ -136,13 +136,13 @@ function IdePage() {
     <div style={{ paddingTop: "5px" }}>
       <Grid container spacing={3}>
         <Grid xs={12} item sm={12} lg={5}>
-          <Paper className="paper" style={{ padding: 15 }}>
-            <h1>Problem Statement</h1>
-            {examples.statement}
+          <Paper className="paper" style={{ padding: 15,marginLeft:15}}>
+            <h1 style={{paddingLeft:10}}>Problem Statement</h1>
+            <span style={{display:"inline-block",paddingLeft:10}}>{examples.statement}</span>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={12} lg={7}>
-          <Paper className="paper" style={{ padding: 15 }}>
+          <Paper className="paper" style={{ padding: 15,marginRight:15 }}>
             <div style={{ textAlign: "right", marginRight: 20 }}>
               <FormControl
                 className={classes.formControl}

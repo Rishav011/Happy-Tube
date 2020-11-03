@@ -17,6 +17,7 @@ function DetailVideoPage(props) {
     }
 
     useEffect(() => {
+        
         axios.post('/api/video/getVideo', videoVariable)
             .then(response => {
                 if (response.data.success) {
@@ -36,8 +37,7 @@ function DetailVideoPage(props) {
                     alert('Failed to get video Info')
                 }
             })
-
-
+            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const updateComment = (newComment) => {
