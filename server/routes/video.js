@@ -40,7 +40,7 @@ router.post("/uploadfiles", (req, res) => {
         if (err) {
             return res.json({ success: false, err })
         }
-        // console.log(res.req.file.filename)
+        console.log(res.req.file)
         
         path = res.req.file.path
         return res.json({ success: true, filePath: res.req.file.path, fileName: res.req.file.filename })
@@ -50,7 +50,7 @@ router.post("/uploadfiles", (req, res) => {
 
 
 router.post("/thumbnail", (req, res) => {
-
+    // let arr = ['tn_1,tn_2']
     let thumbsFilePath ="uploads/thumbnails/tn_1.png"; 
     let dur;
     // console.log(path);

@@ -12,7 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1), 
     minWidth: 120,
   },
   selectEmpty: {
@@ -27,6 +27,7 @@ function IdePage() {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [output, setOutput] = useState("");
   const valueGetter = useRef();
+  const inputGetter = useRef();
 
   const classes = useStyles();
 
@@ -46,6 +47,10 @@ function IdePage() {
     setIsEditorReady(true);
     valueGetter.current = getValue;
     // currentValue.current = getValue;
+  }
+  function inputDidMount(getValue){
+    setIsEditorReady(true);
+    inputGetter.current = getValue;
   }
 
   const onLanguageChangeHandler = (event) => {
@@ -75,11 +80,12 @@ function IdePage() {
     let sentData = {
       language_id: langId,
       source_code: valueGetter.current(),
+      stdin:inputGetter.current()
     };
     let config = {
       headers: {
         "content-type": "application/json",
-        "x-rapidapi-host": "judge0.p.rapidapi.com",
+        "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
         "x-rapidapi-key": "3dd0352351msh895e72986c40bd1p10901bjsn0a63c2638618",
         accept: "application/json",
         useQueryString: true,
@@ -87,14 +93,14 @@ function IdePage() {
     };
     try {
       const res = await axios.post(
-        "https://judge0.p.rapidapi.com/submissions",
+        "https://judge0-ce.p.rapidapi.com/submissions",
         sentData,
         config
       );
-      // console.log(res.data.token);
-      sleep(2000);
+      console.log(res.data.token);
+      // sleep(2000);
       const response = await axios.get(
-        `https://judge0.p.rapidapi.com/submissions/${res.data.token}?base64_encoded=true`,
+        `https://judge0-ce.p.rapidapi.com/submissions/${res.data.token}?base64_encoded=true`,
         config
       );
       console.log(response);
@@ -111,7 +117,7 @@ function IdePage() {
   }
 
   const onClickHandler = () => {
-    // console.log(valueGetter.current());
+    console.log(inputGetter.current());
     setOutput(null);
     postReq();
   };
@@ -135,12 +141,12 @@ function IdePage() {
   return (
     <div style={{ paddingTop: "5px" }}>
       <Grid container spacing={3}>
-        <Grid xs={12} item sm={12} lg={5}>
+        {/* <Grid xs={12} item sm={12} lg={5}>
           <Paper className="paper" style={{ padding: 15,marginLeft:15}}>
             <h1 style={{paddingLeft:10}}>Problem Statement</h1>
             <span style={{display:"inline-block",paddingLeft:10}}>{examples.statement}</span>
           </Paper>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={12} lg={7}>
           <Paper className="paper" style={{ padding: 15,marginRight:15 }}>
             <div style={{ textAlign: "right", marginRight: 20 }}>
@@ -175,7 +181,7 @@ function IdePage() {
             </div>
             <div style={{ marginTop: "10px" }}>
               <Editor
-                height={550} // By default, it fully fits with its parent
+                height={500} // By default, it fully fits with its parent
                 theme={theme}
                 language={language}
                 value={examples[language]}
@@ -202,15 +208,30 @@ function IdePage() {
             </div>
           </Paper>
         </Grid>
-        <Grid xs={12} item sm={12} lg={5}></Grid>
-        <Grid item xs={12} sm={12} lg={7}>
-          <div style={{ marginTop: "10px" }}>
+        {/* <Grid xs={12} item sm={12} lg={5}></Grid> */}
+        <Grid item xs={12} sm={12} lg={5}>
+        <Paper className="paper" style={{ padding:15 }}>
+          <div>
+            <h1>Input</h1>
             <Editor
-              height={550} // By default, it fully fits with its parent
+              height={225} // By default, it fully fits with its parent
+              theme={theme}
+              editorDidMount={inputDidMount}
+            />
+          </div>
+          </Paper>
+          
+        <Paper className="paper" style={{ padding:15,marginTop:15 }}>
+          <div>
+            <h1>Output</h1>
+            <Editor
+              height={225} // By default, it fully fits with its parent
               theme={theme}
               value={output}
             />
           </div>
+          </Paper>
+       
         </Grid>
       </Grid>
     </div>
